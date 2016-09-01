@@ -1,7 +1,17 @@
 group 'stellasie'
 version '1.0-SNAPSHOT'
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M2'
+    }
+}
+
 apply plugin: 'java'
+apply plugin: 'org.junit.platform.gradle.plugin'
 
 repositories {
     mavenCentral()
@@ -10,6 +20,41 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.0.0-M2'
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0-M2")
+
+}
+junitPlatform {
+     //platformVersion '1.0.0-SNAPSHOT'
+    engines {
+         include 'junit-jupiter', 'junit-vintage'
+        // exclude 'custom-engine'
+    }
+    tags {
+        // include 'fast'
+        //exclude 'slow'
+    }
+    // includeClassNamePattern '.*JUnit*'
+    // enableStandardTestTask true
+    //reportsDir "build/test-results/junit-platform" // this is the default
+    logManager 'org.apache.logging.log4j.jul.LogManager'
+}
+ext.junit4Version        = '4.12'
+ext.junitVintageVersion  = '4.12.0-M2'
+ext.junitPlatformVersion = '1.0.0-M2'
+ext.junitJupiterVersion  = '5.0.0-M2'
+ext.log4JVersion         = '2.5'
+
+dependencies {
+    // JUnit Jupiter API and TestEngine implementation
+    testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+
+    // If you also want to support JUnit 3 and JUnit 4 tests
+    testCompile("junit:junit:${junit4Version}")
+    testRuntime("org.junit.vintage:junit-vintage-engine:${junitVintageVersion}")
+
+    testRuntime("org.apache.logging.log4j:log4j-core:${log4JVersion}")
+    testRuntime("org.apache.logging.log4j:log4j-jul:${log4JVersion}")
 }
 
 sourceSets {

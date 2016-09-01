@@ -1,5 +1,6 @@
 package com.stellasie;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
@@ -8,8 +9,8 @@ import org.junit.Test;
  */
 public class JUnit4Tests {
     @Test
-    public void junit4Tests() {
-        assertTrue(true);
+    public void getMessageReturnExpectedValue() {
+//        HelloWorld hello = new HelloWorld();
+//        assertEquals("Hello Bob Jane",hello.getMessage("Bob ","Jane"));
     }
-
 }
